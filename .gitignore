@@ -3,3 +3,4 @@ venv/
 video-transcript/output/
 __pycache__/
 *.pyc
+.DS_Store
