@@ -1,0 +1,19 @@
+FROM python:3.11-slim
+
+# system deps 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      ffmpeg git libsndfile1 && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Pull PyTorch CPU wheels from the official index in addition to PyPI
+ENV PIP_EXTRA_INDEX_URL=https://download.pytorch.org/whl/cpu
+
+# install python deps
+COPY video-transcript/requirements_pyannote31.txt /tmp/requirements_pyannote31.txt
+RUN python -m pip install --upgrade pip setuptools wheel && \
+    pip install --no-cache-dir -r /tmp/requirements_pyannote31.txt
+
+# HF_TOKEN is injected by docker-compose
+CMD ["python", "diarization_only.py"]

@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  whisper:
+    build:
+      context: .
+      dockerfile: Dockerfile.whisper
+    volumes:
+      - ./video-transcript:/app
+    working_dir: /app
+    tty: true
+    stdin_open: true
+    command: python main.py
+
+  pyannote:
+    build:
+      context: .
+      dockerfile: Dockerfile.pyannote
+    volumes:
+      - ./video-transcript:/app
+    working_dir: /app
+    environment:
+      - HF_TOKEN=${HF_TOKEN}   # set in your shell before running
+    tty: true
+    stdin_open: true
+    command: python diarization_only.py
+
+  merge:
+    # reuse the lightweight whisper image just to run the merge script
+    build:
+      context: .
+      dockerfile: Dockerfile.whisper
+    volumes:
+      - ./video-transcript:/app
+    working_dir: /app
+    tty: true
+    stdin_open: true
+    command: python merge_segments.py --transcript output/transcript.json --diarization output/diarization.rttm --out output/final_segments.csv

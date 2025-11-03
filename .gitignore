@@ -1,6 +1,18 @@
 venv/
-.venv/
-video-transcript/output/
+venv_*/
 __pycache__/
 *.pyc
 .DS_Store
+
+# Generated data
+output/
+logs/
+*.wav
+*.mp4
+*.rttm
+*.json
+
+# Model / cache
+*.pt
+*.ckpt
+*.onnx
