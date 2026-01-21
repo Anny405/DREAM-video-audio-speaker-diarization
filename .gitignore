@@ -16,3 +16,7 @@ logs/
 *.pt
 *.ckpt
 *.onnx
+
+video-transcript-backup.tgz
+*.tgz
+*.tar.gzallfiles.txt
