@@ -20,3 +20,14 @@ logs/
 video-transcript-backup.tgz
 *.tgz
 *.tar.gzallfiles.txt
+# mac
+.DS_Store
+
+# outputs / data
+output/
+*.wav
+
+# archives / backups
+*.tgz
+*.tar.gz
+video-transcript-backup.tgz
